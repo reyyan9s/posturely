@@ -1,0 +1,2282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Posturely — Wellness, built into the notch.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Caveat:wght@400;500&display=swap"
+    rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #faf8f3;
+      --text: #1c1a17;
+      --muted: #7a7568;
+      --accent: #8cb98a;
+      --accent-dark: #5a8f57;
+      --lavender: #b8b0d8;
+      --rose: #d8b8b8;
+      --sand: #d8cdb0;
+      --border: rgba(28, 26, 23, 0.08);
+      --shadow-sm: 0 2px 16px rgba(28, 26, 23, 0.05);
+      --shadow-md: 0 8px 40px rgba(28, 26, 23, 0.09);
+      --shadow-lg: 0 24px 80px rgba(28, 26, 23, 0.14);
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(28, 26, 23, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(28, 26, 23, 0.05) 1px, transparent 1px);
+      background-size: 64px 64px;
+      pointer-events: none;
+      z-index: 0;
+      mask-image: radial-gradient(circle at 50% 30%, black 20%, transparent 85%);
+      -webkit-mask-image: radial-gradient(circle at 50% 30%, black 20%, transparent 85%);
+    }
+
+    /* MOUSE AURA */
+    .mouse-aura {
+      position: fixed;
+      top: 0; left: 0;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(140, 185, 138, 0.15) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 10;
+      transform: translate(-50%, -50%);
+      transition: top 0.1s ease-out, left 0.1s ease-out;
+      mix-blend-mode: multiply;
+    }
+
+    /* DYNAMIC BLOBS */
+    .hero-glow {
+      position: absolute;
+      top: 25%; left: 50%;
+      width: 80vw; height: 40vw;
+      background: radial-gradient(ellipse at center, rgba(140, 185, 138, 0.2) 0%, transparent 60%);
+      transform: translate(-50%, -50%);
+      filter: blur(80px);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .blobs-container {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      overflow: hidden; pointer-events: none; z-index: 0;
+    }
+    .blob {
+      position: absolute;
+      filter: blur(90px);
+      opacity: 0.6;
+      border-radius: 50%;
+      animation: floatBlob 20s infinite alternate ease-in-out;
+    }
+    .blob-1 { background: #d8b8b8; width: 400px; height: 400px; top: 10%; left: 20%; animation-delay: 0s; }
+    .blob-2 { background: #8cb98a; width: 500px; height: 500px; top: 40%; right: 10%; animation-duration: 25s; animation-delay: -5s; }
+    .blob-3 { background: #b8b0d8; width: 350px; height: 350px; bottom: -10%; left: 30%; animation-duration: 22s; animation-delay: -10s; }
+    @keyframes floatBlob {
+      0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+      33% { transform: translate(120px, -60px) scale(1.1) rotate(45deg); }
+      66% { transform: translate(-60px, 120px) scale(0.9) rotate(90deg); }
+      100% { transform: translate(0, 0) scale(1) rotate(135deg); }
+    }
+
+    /* MARQUEE */
+    .marquee-wrap {
+      width: 100%;
+      overflow: hidden;
+      padding: 20px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(12px);
+      white-space: nowrap;
+      position: relative;
+      z-index: 5;
+    }
+    .marquee {
+      display: inline-block;
+      animation: marquee 25s linear infinite;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+    .marquee span { padding-right: 32px; }
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 48px;
+      background: rgba(250, 248, 243, 0.88);
+      backdrop-filter: blur(24px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Lora', serif;
+      font-size: 19px;
+      font-weight: 600;
+      color: var(--text);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-notch {
+      width: 30px;
+      height: 19px;
+      background: var(--text);
+      border-radius: 0 0 11px 11px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-notch-dot {
+      width: 7px;
+      height: 7px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    .btn-nav {
+      background: var(--text);
+      color: var(--bg) !important;
+      padding: 9px 22px;
+      border-radius: 8px;
+      font-weight: 600 !important;
+      transition: opacity 0.2s !important;
+    }
+
+    .btn-nav:hover {
+      opacity: 0.82 !important;
+    }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      z-index: 1;
+      padding: 90px 24px 80px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 6px 16px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--muted);
+      margin-bottom: 32px;
+      box-shadow: var(--shadow-sm);
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .badge-pip {
+      width: 6px;
+      height: 6px;
+      background: var(--accent-dark);
+      border-radius: 50%;
+    }
+
+    .hero-title {
+      font-family: 'Lora', serif;
+      font-size: clamp(52px, 8.5vw, 108px);
+      font-weight: 500;
+      line-height: 1.02;
+      letter-spacing: -0.04em;
+      max-width: 900px;
+      color: #111;
+    }
+
+    .hero-title .word {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(30px) rotate(2deg);
+      animation: wordUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    }
+    
+    .hero-title .w1 { animation-delay: 0.05s; }
+    .hero-title .w2 { animation-delay: 0.12s; }
+    .hero-title .w3 { animation-delay: 0.19s; }
+    
+    @keyframes wordUp {
+      to { opacity: 1; transform: translateY(0) rotate(0deg); }
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--accent-dark);
+      position: relative;
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(30px) rotate(2deg);
+      animation: wordUp 0.8s 0.26s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    }
+
+    .hero-title em::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-dark));
+      border-radius: 2px;
+      transform: scaleX(0);
+      transform-origin: left;
+      animation: lineIn 0.8s 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    }
+
+    @keyframes lineIn {
+      to {
+        transform: scaleX(1);
+      }
+    }
+
+    .hero-sub {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 22px;
+      color: #666;
+      max-width: 580px;
+      margin: 28px auto 48px;
+      line-height: 1.6;
+      letter-spacing: -0.015em;
+      font-weight: 400;
+      animation: fadeUp 0.6s 0.16s ease both;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+      animation: fadeUp 0.6s 0.24s ease both;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      background: var(--text);
+      color: var(--bg);
+      padding: 14px 28px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+      box-shadow: 0 4px 20px rgba(28, 26, 23, 0.18);
+    }
+
+    .btn-primary::after {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 50%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.12), transparent);
+      transform: skewX(-20deg);
+      transition: 0.6s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(28, 26, 23, 0.28);
+    }
+
+    .btn-primary:hover::after {
+      left: 200%;
+    }
+
+    .btn-ghost {
+      font-size: 14px;
+      color: var(--muted);
+      text-decoration: none;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.2s;
+    }
+
+    .btn-ghost:hover {
+      color: var(--text);
+    }
+
+    .hero-note {
+      font-family: 'Caveat', cursive;
+      font-size: 15px;
+      color: var(--muted);
+      margin-top: 14px;
+      opacity: 0.72;
+      animation: fadeUp 0.6s 0.32s ease both;
+    }
+
+    /* HERO DEMO */
+    .hero-demo-wrap {
+      position: relative;
+      margin-top: 72px;
+      width: 100%;
+      max-width: 760px;
+      animation: fadeUp 0.8s 0.44s ease both;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .macbook {
+      width: 100%;
+      background: linear-gradient(180deg, #2a2a2a 0%, #1a1a1a 100%);
+      border-radius: 18px 18px 0 0;
+      padding: 0 14px;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.08);
+    }
+
+    .macbook-screen {
+      background: #141414;
+      border-radius: 10px 10px 0 0;
+      min-height: 300px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+    }
+
+    .macbook-chin {
+      height: 28px;
+      background: linear-gradient(180deg, #1e1e1e 0%, #151515 100%);
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 0 0 18px 18px;
+    }
+
+    .demo-notch {
+      width: 180px;
+      height: 32px;
+      background: #1e1e1e;
+      border-radius: 0 0 20px 20px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: width 0.55s cubic-bezier(0.34, 1.3, 0.64, 1), height 0.55s cubic-bezier(0.34, 1.3, 0.64, 1);
+      flex-shrink: 0;
+    }
+
+    .demo-notch.expanded {
+      width: 340px;
+      height: 44px;
+    }
+
+    .demo-notch-camera {
+      width: 9px;
+      height: 9px;
+      background: #2a2a2a;
+      border: 1px solid #333;
+      border-radius: 50%;
+      transition: opacity 0.2s;
+    }
+
+    .demo-notch.expanded .demo-notch-camera {
+      opacity: 0;
+    }
+
+    .demo-notch-content {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 14px;
+      opacity: 0;
+      transform: scale(0.9);
+      transition: opacity 0.3s 0.18s ease, transform 0.3s 0.18s ease;
+    }
+
+    .demo-notch.expanded .demo-notch-content {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .demo-notch-left {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .demo-app-icon {
+      width: 14px;
+      height: 14px;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .demo-app-name {
+      font-size: 12px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.85);
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      letter-spacing: -0.01em;
+    }
+
+    .demo-notch-right {
+      display: flex;
+      align-items: center;
+    }
+
+    .demo-fullscreen {
+      position: absolute;
+      inset: 0;
+      z-index: 8;
+      background: #000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      opacity: 0;
+      transition: opacity 0.45s ease;
+      pointer-events: none;
+    }
+
+    .demo-fullscreen.visible {
+      opacity: 1;
+    }
+
+    .demo-fs-icon {
+      width: 54px;
+      height: 54px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .demo-fs-icon svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .demo-fs-label {
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: white;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .demo-desktop {
+      flex: 1;
+      padding: 10px 16px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      position: relative;
+    }
+
+    .demo-menubar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 22px;
+    }
+
+    .demo-menubar-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .demo-windows {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 10px;
+      flex: 1;
+    }
+
+    .demo-window {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 8px;
+      padding: 10px;
+    }
+
+    .demo-window-bar {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 9px;
+    }
+
+    .demo-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .demo-dot.r {
+      background: #ff5f57;
+    }
+
+    .demo-dot.y {
+      background: #febc2e;
+    }
+
+    .demo-dot.g {
+      background: #28c840;
+    }
+
+    .demo-window-lines {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .demo-line {
+      height: 5px;
+      border-radius: 3px;
+      background: rgba(255, 255, 255, 0.07);
+    }
+
+    .demo-line.w80 {
+      width: 80%
+    }
+
+    .demo-line.w70 {
+      width: 70%
+    }
+
+    .demo-line.w60 {
+      width: 60%
+    }
+
+    .demo-line.w55 {
+      width: 55%
+    }
+
+    .demo-line.w45 {
+      width: 45%
+    }
+
+    .demo-line.w40 {
+      width: 40%
+    }
+
+    .demo-timer-pill {
+      position: absolute;
+      right: 16px;
+      top: 36px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 5px 10px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .demo-timer-pill.visible {
+      opacity: 1;
+    }
+
+    .demo-timer-pill span {
+      font-family: 'SF Mono', 'Menlo', monospace;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.75);
+      font-weight: 500;
+      letter-spacing: 0.06em;
+    }
+
+    .demo-current-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 18px;
+      font-size: 13px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .demo-label-pip {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-dark);
+      transition: background 0.3s;
+    }
+
+    /* REMINDER TABS */
+    .reminder-tabs {
+      display: flex;
+      gap: 10px;
+      margin-top: 64px;
+      flex-wrap: wrap;
+      justify-content: center;
+      animation: fadeUp 0.6s 0.56s ease both;
+    }
+
+    .reminder-tab {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 9px 18px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: var(--shadow-sm);
+      user-select: none;
+    }
+
+    .reminder-tab svg {
+      width: 14px;
+      height: 14px;
+      color: var(--muted);
+      flex-shrink: 0;
+      transition: color 0.2s;
+    }
+
+    .reminder-tab:hover,
+    .reminder-tab.active {
+      background: var(--text);
+      color: var(--bg);
+      border-color: var(--text);
+      transform: translateY(-1px);
+    }
+
+    .reminder-tab.active svg,
+    .reminder-tab:hover svg {
+      color: var(--accent);
+    }
+
+    /* DIVIDER */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* SHARED */
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--text);
+      padding: 6px 14px;
+      border-radius: 100px;
+      margin-bottom: 20px;
+    }
+
+    .section-pip {
+      width: 5px;
+      height: 5px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+
+    .section-title {
+      font-family: 'Lora', serif;
+      font-size: clamp(40px, 5.5vw, 64px);
+      font-weight: 500;
+      line-height: 1.05;
+      letter-spacing: -0.035em;
+      margin-bottom: 18px;
+      color: #111;
+    }
+
+    .section-sub {
+      color: #666;
+      font-size: 20px;
+      max-width: 520px;
+      line-height: 1.65;
+      letter-spacing: -0.01em;
+      margin-bottom: 56px;
+    }
+
+    /* FEATURES */
+    .features {
+      position: relative;
+      z-index: 1;
+      padding: 120px 48px;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .fcard {
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(24px);
+      border: 1px solid rgba(28, 26, 23, 0.1);
+      border-radius: 20px;
+      padding: 32px;
+      transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.4s;
+      position: relative;
+      z-index: 1;
+    }
+
+    .fcard::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: radial-gradient(600px circle at var(--mouse-x, -500px) var(--mouse-y, -500px), rgba(140, 185, 138, 0.08), transparent 40%);
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+      border-radius: inherit;
+    }
+
+    .fcard::after {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      padding: 1px;
+      background: radial-gradient(400px circle at var(--mouse-x, -500px) var(--mouse-y, -500px), rgba(140, 185, 138, 0.4), transparent 40%);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask-composite: exclude;
+      z-index: -2;
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+    }
+
+    .fcard:hover {
+      transform: translateY(-6px) scale(1.01);
+      box-shadow: var(--shadow-lg);
+      border-color: rgba(28, 26, 23, 0.2);
+    }
+
+    .fcard:hover::before, .fcard:hover::after {
+      opacity: 1;
+    }
+
+    .fcard.wide {
+      grid-column: span 2;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .fcard.dark {
+      background: rgba(28, 26, 23, 0.9);
+      border-color: rgba(28, 26, 23, 1);
+    }
+
+    .fcard.dark h3 {
+      color: var(--bg);
+    }
+
+    .fcard.dark::before {
+      background: radial-gradient(600px circle at var(--mouse-x, -500px) var(--mouse-y, -500px), rgba(255, 255, 255, 0.06), transparent 40%);
+    }
+
+    .fcard.dark::after {
+      background: radial-gradient(400px circle at var(--mouse-x, -500px) var(--mouse-y, -500px), rgba(255, 255, 255, 0.2), transparent 40%);
+    }
+
+    .fcard-num {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      opacity: 0.5;
+      margin-bottom: 18px;
+    }
+
+    .fcard.dark .fcard-num {
+      color: rgba(255, 255, 255, 0.2);
+      opacity: 1;
+    }
+
+    .fcard-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .fcard:hover .fcard-icon {
+      transform: scale(1.1);
+    }
+
+    .fcard-icon svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    .ic-sage {
+      background: rgba(140, 185, 138, 0.15);
+      color: var(--accent-dark);
+    }
+
+    .ic-lav {
+      background: rgba(184, 176, 216, 0.18);
+      color: #7066a8;
+    }
+
+    .ic-rose {
+      background: rgba(216, 184, 184, 0.18);
+      color: #a87070;
+    }
+
+    .ic-dark {
+      background: rgba(255, 255, 255, 0.08);
+      color: rgba(250, 248, 243, 0.65);
+    }
+
+    .fcard h3 {
+      font-family: 'Lora', serif;
+      font-size: 21px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      line-height: 1.2;
+    }
+
+    .fcard p {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.72;
+    }
+
+    .fcard.dark h3 {
+      color: var(--bg);
+    }
+
+    .fcard.dark p {
+      color: rgba(250, 248, 243, 0.45);
+    }
+
+    .fcard-shot {
+      border-radius: 12px;
+      overflow: hidden;
+      background: #0d0d0d;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.28);
+    }
+
+    .fcard-shot img {
+      width: 100%;
+      display: block;
+    }
+
+    /* reminder rows */
+    .rrows {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 28px;
+    }
+
+    .rrow {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 10px;
+      padding: 11px 14px;
+    }
+
+    .rrow-icon {
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .rrow-icon svg {
+      width: 15px;
+      height: 15px;
+    }
+
+    .rrow-info {
+      flex: 1;
+    }
+
+    .rrow-name {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.85);
+      font-weight: 500;
+    }
+
+    .rrow-time {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.3);
+      margin-top: 1px;
+    }
+
+    .rrow-badge {
+      font-size: 10px;
+      padding: 3px 9px;
+      border-radius: 6px;
+      font-weight: 600;
+    }
+
+    .b-sage {
+      background: rgba(140, 185, 138, 0.18);
+      color: #78b076;
+    }
+
+    .b-lav {
+      background: rgba(184, 176, 216, 0.18);
+      color: #9b90cc;
+    }
+
+    .b-rose {
+      background: rgba(216, 184, 184, 0.18);
+      color: #c48888;
+    }
+
+    .b-sand {
+      background: rgba(216, 205, 176, 0.18);
+      color: #b89e6e;
+    }
+
+    /* WHY */
+    .why {
+      position: relative;
+      z-index: 1;
+      background: white;
+      padding: 100px 24px;
+    }
+
+    .why-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      margin-top: 60px;
+    }
+
+    .why-item {
+      padding: 36px 32px;
+      border-right: 1px solid var(--border);
+      transition: background 0.2s;
+    }
+
+    .why-item:last-child {
+      border-right: none;
+    }
+
+    .why-item:hover {
+      background: var(--bg);
+    }
+
+    .why-val {
+      font-family: 'Lora', serif;
+      font-size: 42px;
+      font-weight: 700;
+      color: var(--accent-dark);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .why-label {
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 12px;
+    }
+
+    .why-item p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.72;
+    }
+
+    /* EMAIL */
+    .email-section {
+      position: relative;
+      z-index: 1;
+      background: var(--text);
+      padding: 110px 24px;
+      overflow: hidden;
+    }
+
+    .email-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(140, 185, 138, 0.06) 1px, transparent 1px);
+      background-size: 28px 28px;
+      pointer-events: none;
+    }
+
+    .email-inner {
+      max-width: 560px;
+      margin: 0 auto;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .email-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(140, 185, 138, 0.12);
+      border: 1px solid rgba(140, 185, 138, 0.2);
+      border-radius: 100px;
+      padding: 6px 16px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 28px;
+    }
+
+    .email-pip {
+      width: 5px;
+      height: 5px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+
+    .email-title {
+      font-family: 'Lora', serif;
+      font-size: clamp(34px, 5vw, 54px);
+      font-weight: 600;
+      line-height: 1.07;
+      letter-spacing: -0.022em;
+      color: var(--bg);
+      margin-bottom: 16px;
+    }
+
+    .email-title em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .email-sub {
+      font-size: 16px;
+      color: rgba(250, 248, 243, 0.42);
+      margin-bottom: 40px;
+      line-height: 1.72;
+    }
+
+    .email-form {
+      display: flex;
+      gap: 10px;
+      max-width: 460px;
+      margin: 0 auto;
+    }
+
+    .email-input {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.11);
+      border-radius: 10px;
+      padding: 14px 18px;
+      font-size: 15px;
+      color: var(--bg);
+      font-family: 'DM Sans', sans-serif;
+      outline: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .email-input::placeholder {
+      color: rgba(250, 248, 243, 0.27);
+    }
+
+    .email-input:focus {
+      border-color: rgba(140, 185, 138, 0.48);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .email-btn {
+      background: var(--accent-dark);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 14px 22px;
+      font-size: 15px;
+      font-weight: 600;
+      font-family: 'DM Sans', sans-serif;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: transform 0.2s, opacity 0.2s;
+      box-shadow: 0 4px 20px rgba(90, 143, 87, 0.3);
+    }
+
+    .email-btn:hover {
+      transform: translateY(-2px);
+      opacity: 0.9;
+    }
+
+    .email-btn:disabled {
+      opacity: 0.55;
+      transform: none;
+      cursor: not-allowed;
+    }
+
+    .email-note {
+      font-family: 'Caveat', cursive;
+      font-size: 15px;
+      color: rgba(250, 248, 243, 0.27);
+      margin-top: 16px;
+    }
+
+    .email-success {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      padding: 32px;
+      background: rgba(140, 185, 138, 0.08);
+      border: 1px solid rgba(140, 185, 138, 0.16);
+      border-radius: 16px;
+      max-width: 460px;
+      margin: 0 auto;
+    }
+
+    .email-success-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(140, 185, 138, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+    }
+
+    .email-success-icon svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .email-success h4 {
+      font-family: 'Lora', serif;
+      font-size: 20px;
+      color: var(--bg);
+      font-weight: 600;
+    }
+
+    .email-success p {
+      font-size: 14px;
+      color: rgba(250, 248, 243, 0.42);
+      line-height: 1.65;
+      text-align: center;
+    }
+
+    /* FAQ */
+    .faq {
+      position: relative;
+      z-index: 1;
+      padding: 100px 24px;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .faq-list {
+      margin-top: 48px;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .faq-q {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 22px 0;
+      cursor: pointer;
+      user-select: none;
+      gap: 16px;
+    }
+
+    .faq-q-inner {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .faq-num {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent-dark);
+      min-width: 20px;
+    }
+
+    .faq-chevron {
+      width: 20px;
+      height: 20px;
+      color: var(--muted);
+      flex-shrink: 0;
+      transition: transform 0.3s;
+    }
+
+    .faq-item.open .faq-chevron {
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease;
+    }
+
+    .faq-item.open .faq-answer {
+      max-height: 200px;
+    }
+
+    .faq-answer p {
+      padding-bottom: 22px;
+      padding-left: 32px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.72;
+    }
+
+    /* DOWNLOAD CTA */
+    .download {
+      position: relative;
+      z-index: 1;
+      padding: 120px 24px;
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .download-title {
+      font-family: 'Lora', serif;
+      font-size: clamp(38px, 5.5vw, 64px);
+      font-weight: 600;
+      line-height: 1.06;
+      letter-spacing: -0.022em;
+      margin-bottom: 20px;
+    }
+
+    .download-title em {
+      font-style: italic;
+      color: var(--accent-dark);
+    }
+
+    .download-sub {
+      font-size: 17px;
+      color: var(--muted);
+      margin-bottom: 40px;
+      line-height: 1.72;
+    }
+
+    .download-tags {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .download-tag {
+      font-size: 13px;
+      color: var(--muted);
+      font-weight: 500;
+      padding: 0 14px;
+      border-right: 1px solid var(--border);
+    }
+
+    .download-tag:first-child {
+      padding-left: 0;
+    }
+
+    .download-tag:last-child {
+      border-right: none;
+    }
+
+    /* FOOTER */
+    .footer-stripe {
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent) 0%, var(--lavender) 50%, var(--rose) 100%);
+    }
+
+    footer {
+      background: var(--text);
+      padding: 44px 48px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .footer-logo {
+      font-family: 'Lora', serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--bg);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .footer-notch {
+      width: 26px;
+      height: 17px;
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 0 0 9px 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .footer-notch-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+
+    .footer-copy {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.28);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer-links a {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.38);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: rgba(255, 255, 255, 0.78);
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(22px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px) scale(0.98);
+      transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      nav {
+        padding: 14px 20px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .fcard.wide {
+        grid-column: span 1;
+        grid-template-columns: 1fr;
+      }
+
+      .why-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .why-item {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .hero-screen-float,
+      .hero-screen-settings {
+        display: none;
+      }
+
+      footer {
+        padding: 32px 20px;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- MOUSE AURA -->
+  <div class="mouse-aura" id="mouseAura"></div>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">
+      <div class="nav-notch">
+        <div class="nav-notch-dot"></div>
+      </div>
+      Posturely
+    </a>
+    <ul class="nav-links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#why">Why Posturely</a></li>
+      <li><a href="#get-app">Get the App</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#get-app" class="btn-nav">Get the App</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="blobs-container">
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+      <div class="blob blob-3"></div>
+    </div>
+    <div class="hero-badge">
+      <div class="badge-pip"></div>
+      macOS 13+ &nbsp;·&nbsp; Built for the notch
+    </div>
+
+    <h1 class="hero-title"><span class="word w1">Wellness,</span> <span class="word w2">built</span> <span class="word w3">into</span><br /><em>the notch.</em></h1>
+
+    <p class="hero-sub">Gentle reminders for posture, hydration, blinking, and breaks — delivered exactly where your
+      eyes already are.</p>
+
+    <div class="hero-actions">
+      <a href="#get-app" class="btn-primary">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
+        </svg>
+        Download for Mac — Free
+      </a>
+      <a href="#features" class="btn-ghost">
+        See how it works
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M5 12h14M12 5l7 7-7 7" />
+        </svg>
+      </a>
+    </div>
+
+    <p class="hero-note">completely free &nbsp;·&nbsp; no account &nbsp;·&nbsp; macOS 13+</p>
+
+    <!-- Animated notch demo -->
+    <div class="hero-demo-wrap">
+      <div class="macbook">
+        <div class="macbook-screen">
+
+          <!-- Notch -->
+          <div class="demo-notch" id="demoNotch">
+            <div class="demo-notch-camera" id="demoCamera"></div>
+            <div class="demo-notch-content" id="demoContent">
+              <div class="demo-notch-left">
+                <svg class="demo-app-icon" id="demoNotchIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="2" stroke-linecap="round">
+                  <circle cx="12" cy="5" r="2" />
+                  <path d="M12 7v5M9 10l3 2 3-2M9 20h6" />
+                </svg>
+                <span class="demo-app-name">Posturely</span>
+              </div>
+              <div class="demo-notch-right">
+                <span id="notchTimer"
+                  style="font-family:'SF Mono',Menlo,monospace;font-size:12px;font-weight:500;color:rgba(255,255,255,0.6);letter-spacing:0.04em;">00:05</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Fullscreen reminder overlay (DRINK WATER style) -->
+          <div class="demo-fullscreen" id="demoFullscreen">
+            <div class="demo-fs-icon" id="demoFsIcon">
+              <svg viewBox="0 0 24 24" fill="white">
+                <path d="M12 2C6 9 4 13.5 4 16a8 8 0 0 0 16 0c0-2.5-2-7-8-14z" />
+              </svg>
+            </div>
+            <div class="demo-fs-label" id="demoFsLabel">DRINK WATER</div>
+          </div>
+
+          <!-- Simulated desktop -->
+          <div class="demo-desktop">
+            <div class="demo-menubar">
+              <div class="demo-menubar-left">
+                <span style="font-size:11px;color:rgba(255,255,255,0.5);font-weight:600;">Finder</span>
+                <span style="font-size:11px;color:rgba(255,255,255,0.25);">File</span>
+                <span style="font-size:11px;color:rgba(255,255,255,0.25);">Edit</span>
+                <span style="font-size:11px;color:rgba(255,255,255,0.25);">View</span>
+              </div>
+              <span style="font-size:11px;color:rgba(255,255,255,0.25);">9:41 AM</span>
+            </div>
+            <div class="demo-windows">
+              <div class="demo-window">
+                <div class="demo-window-bar">
+                  <div class="demo-dot r"></div>
+                  <div class="demo-dot y"></div>
+                  <div class="demo-dot g"></div>
+                </div>
+                <div class="demo-window-lines">
+                  <div class="demo-line w80"></div>
+                  <div class="demo-line w55"></div>
+                  <div class="demo-line w70"></div>
+                  <div class="demo-line w40"></div>
+                </div>
+              </div>
+              <div class="demo-window">
+                <div class="demo-window-bar">
+                  <div class="demo-dot r"></div>
+                  <div class="demo-dot y"></div>
+                  <div class="demo-dot g"></div>
+                </div>
+                <div class="demo-window-lines">
+                  <div class="demo-line w60"></div>
+                  <div class="demo-line w80"></div>
+                  <div class="demo-line w45"></div>
+                </div>
+              </div>
+            </div>
+            <!-- Timer pill — visible during break state -->
+            <div class="demo-timer-pill" id="demoTimer">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.55)"
+                stroke-width="2">
+                <circle cx="12" cy="12" r="10" />
+                <path d="M12 6v6l4 2" />
+              </svg>
+              <span id="demoTimerVal">00:05</span>
+            </div>
+          </div>
+
+        </div>
+        <div class="macbook-chin">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="rgba(255,255,255,0.12)">
+            <path
+              d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
+          </svg>
+        </div>
+      </div>
+      <div class="demo-current-label">
+        <div class="demo-label-pip" id="demoPip"></div>
+        <span id="demoLabelText">Break reminder · notch expanded</span>
+      </div>
+    </div>
+
+    <!-- Reminder type pills -->
+    <div class="reminder-tabs">
+      <div class="reminder-tab active" data-mode="posture">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <circle cx="12" cy="5" r="2" />
+          <path d="M12 7v5M9 10l3 2 3-2M9 20h6" />
+        </svg>
+        Posture
+      </div>
+      <div class="reminder-tab" data-mode="eye">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+          <circle cx="12" cy="12" r="3" />
+        </svg>
+        Eye rest
+      </div>
+      <div class="reminder-tab" data-mode="water">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M12 2C6 9 4 13.5 4 16a8 8 0 0 0 16 0c0-2.5-2-7-8-14z" />
+        </svg>
+        Hydration
+      </div>
+      <div class="reminder-tab" data-mode="break">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M18 8h1a4 4 0 0 1 0 8h-1" />
+          <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z" />
+          <line x1="6" y1="1" x2="6" y2="4" />
+          <line x1="10" y1="1" x2="10" y2="4" />
+          <line x1="14" y1="1" x2="14" y2="4" />
+        </svg>
+        Break
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-wrap">
+    <div class="marquee">
+      <span>WELLNESS IN THE NOTCH ✦ POSTURE CHECKS ✦ HYDRATION NUDGES ✦ EYE REST PROMPTS ✦ ZERO DISTRACTIONS ✦ NATIVE TO MACOS ✦</span>
+      <span>WELLNESS IN THE NOTCH ✦ POSTURE CHECKS ✦ HYDRATION NUDGES ✦ EYE REST PROMPTS ✦ ZERO DISTRACTIONS ✦ NATIVE TO MACOS ✦</span>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- FEATURES -->
+  <section class="features" id="features">
+    <div class="reveal">
+      <div class="section-label">
+        <div class="section-pip"></div> Features
+      </div>
+      <h2 class="section-title">Not your average<br />reminder app.</h2>
+      <p class="section-sub">No banners. No popups. No noise. A gentle nudge, exactly where you're already looking.</p>
+    </div>
+
+    <div class="features-grid">
+
+      <!-- Wide: Notch integration -->
+      <div class="fcard wide reveal">
+        <div>
+          <div class="fcard-num">01</div>
+          <div class="fcard-icon ic-sage">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <rect x="5" y="0" width="14" height="8" rx="4" />
+              <line x1="2" y1="8" x2="22" y2="8" />
+            </svg>
+          </div>
+          <h3>Lives in the notch</h3>
+          <p>Posturely integrates directly into your MacBook notch — the one place your eyes always travel. No separate
+            window, no dock badge, no interruption to your flow. It expands softly with a reminder, then disappears.</p>
+        </div>
+        <div class="fcard-shot">
+          <img src="notch-preview.png" alt="Notch break timer" />
+        </div>
+      </div>
+
+      <!-- Card: Four reminders -->
+      <div class="fcard reveal">
+        <div class="fcard-num">02</div>
+        <div class="fcard-icon ic-lav">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <rect x="3" y="3" width="7" height="7" rx="1.5" />
+            <rect x="14" y="3" width="7" height="7" rx="1.5" />
+            <rect x="3" y="14" width="7" height="7" rx="1.5" />
+            <rect x="14" y="14" width="7" height="7" rx="1.5" />
+          </svg>
+        </div>
+        <h3>Four wellness reminders</h3>
+        <p>Posture checks, blink reminders, hydration nudges, and break prompts — each independently configurable, so it
+          fits around your schedule.</p>
+      </div>
+
+      <!-- Card: Native macOS -->
+      <div class="fcard reveal">
+        <div class="fcard-num">03</div>
+        <div class="fcard-icon ic-rose">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <path
+              d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
+          </svg>
+        </div>
+        <h3>Feels native to macOS</h3>
+        <p>Smooth system-level animations, zero latency, no Electron overhead. Posturely doesn't feel like a third-party
+          app — it feels like it was always part of macOS.</p>
+      </div>
+
+      <!-- Wide dark: Settings -->
+      <div class="fcard wide dark reveal">
+        <div>
+          <div class="fcard-num">04</div>
+          <div class="fcard-icon ic-dark">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <line x1="4" y1="6" x2="20" y2="6" />
+              <line x1="4" y1="12" x2="20" y2="12" />
+              <line x1="4" y1="18" x2="20" y2="18" />
+              <circle cx="8" cy="6" r="2" fill="currentColor" />
+              <circle cx="16" cy="12" r="2" fill="currentColor" />
+              <circle cx="10" cy="18" r="2" fill="currentColor" />
+            </svg>
+          </div>
+          <h3>Full control, zero clutter</h3>
+          <p>Set intervals per reminder type, toggle each one independently, and pause everything with one click when
+            you need focus. All from a clean native settings panel.</p>
+          <div class="rrows">
+            <div class="rrow">
+              <div class="rrow-icon" style="background:rgba(140,185,138,0.14)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#78b076" stroke-width="2" stroke-linecap="round">
+                  <circle cx="12" cy="5" r="2" />
+                  <path d="M12 7v5M9 10l3 2 3-2M9 20h6" />
+                </svg>
+              </div>
+              <div class="rrow-info">
+                <div class="rrow-name">Posture check</div>
+                <div class="rrow-time">Every 20 min</div>
+              </div>
+              <div class="rrow-badge b-sage">On</div>
+            </div>
+            <div class="rrow">
+              <div class="rrow-icon" style="background:rgba(184,176,216,0.14)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#9b90cc" stroke-width="2" stroke-linecap="round">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                  <circle cx="12" cy="12" r="3" />
+                </svg>
+              </div>
+              <div class="rrow-info">
+                <div class="rrow-name">Blink reminder</div>
+                <div class="rrow-time">Every 20 sec</div>
+              </div>
+              <div class="rrow-badge b-lav">On</div>
+            </div>
+            <div class="rrow">
+              <div class="rrow-icon" style="background:rgba(216,184,184,0.14)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#c48888" stroke-width="2" stroke-linecap="round">
+                  <path d="M12 2C6 9 4 13.5 4 16a8 8 0 0 0 16 0c0-2.5-2-7-8-14z" />
+                </svg>
+              </div>
+              <div class="rrow-info">
+                <div class="rrow-name">Hydration nudge</div>
+                <div class="rrow-time">Every 30 min</div>
+              </div>
+              <div class="rrow-badge b-rose">On</div>
+            </div>
+            <div class="rrow">
+              <div class="rrow-icon" style="background:rgba(216,205,176,0.14)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#b89e6e" stroke-width="2" stroke-linecap="round">
+                  <path d="M18 8h1a4 4 0 0 1 0 8h-1" />
+                  <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z" />
+                </svg>
+              </div>
+              <div class="rrow-info">
+                <div class="rrow-name">Break reminder</div>
+                <div class="rrow-time">Every 90 min</div>
+              </div>
+              <div class="rrow-badge b-sand">On</div>
+            </div>
+          </div>
+        </div>
+        <div class="fcard-shot">
+          <img src="settings.png" alt="Posturely settings panel" />
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- WHY -->
+  <section class="why" id="why">
+    <div class="why-inner">
+      <div class="reveal" style="text-align:center;max-width:600px;margin:0 auto;">
+        <div class="section-label" style="margin:0 auto 20px;">
+          <div class="section-pip"></div> Why Posturely
+        </div>
+        <h2 class="section-title" style="margin:0 auto 14px;">Small reminders.<br /><em
+            style="font-style:italic;color:var(--accent-dark);">Big difference.</em></h2>
+        <p class="section-sub" style="margin:0 auto;">Your health doesn't need a dramatic overhaul. It needs consistent,
+          gentle nudges at the right moment.</p>
+      </div>
+      <div class="why-grid reveal">
+        <div class="why-item">
+          <div class="why-val">20/20/20</div>
+          <div class="why-label">Eye rest rule</div>
+          <p>Every 20 minutes, look at something 20 feet away for 20 seconds. Posturely handles the reminder so you
+            never have to think about it.</p>
+        </div>
+        <div class="why-item">
+          <div class="why-val">Zero</div>
+          <div class="why-label">Distractions added</div>
+          <p>Reminders appear in the notch and vanish silently. No popups, no sounds, no full-screen interruptions. Your
+            focus stays intact.</p>
+        </div>
+        <div class="why-item">
+          <div class="why-val">Free</div>
+          <div class="why-label">Always</div>
+          <p>No freemium trap, no subscription, no account required. Download and start building better habits in under
+            a minute.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- EMAIL CAPTURE -->
+  <section class="email-section" id="get-app">
+    <div class="email-inner reveal">
+      <div class="email-badge">
+        <div class="email-pip"></div> Early access
+      </div>
+      <h2 class="email-title">Get Posturely<br />in your <em>inbox.</em></h2>
+      <p class="email-sub">Drop your email and we'll send the app directly to you.<br />No App Store. No friction. Just
+        open and install.</p>
+
+      <form class="email-form" id="emailForm" action="https://formspree.io/f/mqeyragy" method="POST">
+        <input class="email-input" type="email" name="email" placeholder="your@email.com" required />
+        <button class="email-btn" type="submit">Send me the app</button>
+      </form>
+
+      <div class="email-success" id="emailSuccess">
+        <div class="email-success-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+            <polyline points="22 4 12 14.01 9 11.01" />
+          </svg>
+        </div>
+        <h4>You're on the list!</h4>
+        <p>We'll send Posturely to your inbox shortly. Check spam if it doesn't arrive within a few minutes.</p>
+      </div>
+
+      <p class="email-note">free forever &nbsp;·&nbsp; macOS 13+ &nbsp;·&nbsp; no spam, ever</p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- FAQ -->
+  <section class="faq" id="faq">
+    <div class="reveal" style="text-align:center;">
+      <div class="section-label" style="margin:0 auto 20px;">
+        <div class="section-pip"></div> FAQ
+      </div>
+      <h2 class="section-title" style="margin:0 auto;">Frequent<br />questions.</h2>
+    </div>
+    <div class="faq-list reveal">
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <div class="faq-q-inner"><span class="faq-num">01</span> Does it work on Macs without a notch?</div>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 9l6 6 6-6" />
+          </svg>
+        </div>
+        <div class="faq-answer">
+          <p>Posturely is designed specifically for MacBooks with a notch — MacBook Pro 2021 and later, MacBook Air 2022
+            and later. It isn't available for older models without a notch.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <div class="faq-q-inner"><span class="faq-num">02</span> Will it slow down my Mac?</div>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 9l6 6 6-6" />
+          </svg>
+        </div>
+        <div class="faq-answer">
+          <p>Not at all. Posturely is extremely lightweight — negligible CPU usage, minimal memory. You won't notice it
+            running except when it gently reminds you.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <div class="faq-q-inner"><span class="faq-num">03</span> Can I customize the reminder intervals?</div>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 9l6 6 6-6" />
+          </svg>
+        </div>
+        <div class="faq-answer">
+          <p>Yes — every reminder type has its own configurable interval and can be toggled independently. Set posture
+            checks every 20 minutes, blink reminders every 20 seconds, and so on.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <div class="faq-q-inner"><span class="faq-num">04</span> Can I pause reminders during meetings?</div>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 9l6 6 6-6" />
+          </svg>
+        </div>
+        <div class="faq-answer">
+          <p>Yes. Pause Posturely from the menu bar with one click, or set a Do Not Disturb duration. You stay in
+            control — it never interrupts at the wrong moment.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <div class="faq-q-inner"><span class="faq-num">05</span> Is my data private?</div>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 9l6 6 6-6" />
+          </svg>
+        </div>
+        <div class="faq-answer">
+          <p>Completely. Posturely runs entirely on your Mac and sends nothing anywhere. No account, no telemetry, no
+            analytics of any kind.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <div class="faq-q-inner"><span class="faq-num">06</span> Is it really free forever?</div>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 9l6 6 6-6" />
+          </svg>
+        </div>
+        <div class="faq-answer">
+          <p>Yes. No freemium model, no subscription coming later. Posturely is free because access to healthier habits
+            shouldn't cost anything.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- DOWNLOAD CTA -->
+  <section class="download">
+    <div class="reveal">
+      <div class="section-label" style="margin:0 auto 28px;">
+        <div class="section-pip"></div> Free forever
+      </div>
+      <h2 class="download-title">Start taking care<br />of yourself. <em>Today.</em></h2>
+      <p class="download-sub">No sign-up. No subscription. No catch.<br />Just download and let Posturely do its thing.
+      </p>
+      <a href="#get-app" class="btn-primary" style="display:inline-flex;font-size:16px;padding:16px 36px;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
+        </svg>
+        Download for Mac — Free
+      </a>
+      <div class="download-tags">
+        <span class="download-tag">macOS 13+</span>
+        <span class="download-tag">No account needed</span>
+        <span class="download-tag">MacBooks with notch</span>
+        <span class="download-tag">Always free</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <div class="footer-stripe"></div>
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <div class="footer-notch">
+          <div class="footer-notch-dot"></div>
+        </div>
+        Posturely
+      </div>
+      <div class="footer-copy">© 2025 Posturely. Made with care for your wellbeing.</div>
+      <div class="footer-links">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+
+  <script>
+    // ── NOTCH DEMO ──
+    const reminders = [
+      {
+        mode: 'posture',
+        notchIcon: `<svg class="demo-app-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="5" r="2"/><path d="M12 7v5M9 10l3 2 3-2M9 20h6"/></svg>`,
+        fullscreen: false,
+        label: 'Posture check · notch reminder',
+        pipColor: '#8cb98a',
+        timerVisible: false,
+      },
+      {
+        mode: 'eye',
+        notchIcon: `<svg class="demo-app-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`,
+        fullscreen: false,
+        label: 'Blink reminder · notch reminder',
+        pipColor: '#b8b0d8',
+        timerVisible: false,
+      },
+      {
+        mode: 'water',
+        notchIcon: `<svg class="demo-app-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2C6 9 4 13.5 4 16a8 8 0 0 0 16 0c0-2.5-2-7-8-14z"/></svg>`,
+        fullscreen: true,
+        fsIcon: `<svg viewBox="0 0 24 24" fill="white"><path d="M12 2C6 9 4 13.5 4 16a8 8 0 0 0 16 0c0-2.5-2-7-8-14z"/></svg>`,
+        fsLabel: 'DRINK WATER',
+        label: 'Hydration · fullscreen reminder',
+        pipColor: '#7ab8d4',
+        timerVisible: false,
+      },
+      {
+        mode: 'break',
+        notchIcon: `<svg class="demo-app-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/></svg>`,
+        fullscreen: false,
+        label: 'Break timer · notch expanded',
+        pipColor: '#d8cdb0',
+        timerVisible: true,
+      },
+    ];
+
+    const notch = document.getElementById('demoNotch');
+    const notchIcon = document.getElementById('demoNotchIcon');
+    const fullscreen = document.getElementById('demoFullscreen');
+    const fsIcon = document.getElementById('demoFsIcon');
+    const fsLabel = document.getElementById('demoFsLabel');
+    const timerPill = document.getElementById('demoTimer');
+    const labelText = document.getElementById('demoLabelText');
+    const pip = document.getElementById('demoPip');
+    const tabs = document.querySelectorAll('.reminder-tab');
+
+    let current = 3; // start on break
+    let autoTimer;
+
+    function showReminder(idx, fromTab) {
+      const r = reminders[idx];
+      current = idx;
+
+      // Update tabs
+      tabs.forEach((t, i) => t.classList.toggle('active', i === idx));
+
+      // Collapse notch first
+      notch.classList.remove('expanded');
+      fullscreen.classList.remove('visible');
+      timerPill.classList.remove('visible');
+
+      setTimeout(() => {
+        // Update notch icon
+        const iconEl = notch.querySelector('.demo-app-icon');
+        if (iconEl) iconEl.outerHTML = r.notchIcon; // swap icon
+
+        // Update label + pip
+        labelText.textContent = r.label;
+        pip.style.background = r.pipColor;
+
+        if (r.fullscreen) {
+          // Show fullscreen overlay
+          fsIcon.innerHTML = r.fsIcon;
+          fsLabel.textContent = r.fsLabel;
+          fullscreen.classList.add('visible');
+        } else {
+          // Expand notch
+          notch.classList.add('expanded');
+          if (r.timerVisible) {
+            setTimeout(() => timerPill.classList.add('visible'), 400);
+          }
+        }
+      }, 320);
+    }
+
+    // Initial state
+    showReminder(3);
+
+    // Auto-cycle every 3.5s
+    function startAuto() {
+      autoTimer = setInterval(() => {
+        showReminder((current + 1) % reminders.length);
+      }, 3500);
+    }
+    startAuto();
+
+    // Tab click — pause auto for 8s then resume
+    tabs.forEach((tab, i) => {
+      tab.addEventListener('click', () => {
+        clearInterval(autoTimer);
+        showReminder(i, true);
+        setTimeout(startAuto, 8000);
+      });
+    });
+
+    // Countdown timer — drives both notch timer and break pill
+    let seconds = 5;
+    setInterval(() => {
+      seconds = seconds > 0 ? seconds - 1 : 59;
+      const pad = n => String(n).padStart(2, '0');
+      const display = `00:${pad(seconds)}`;
+      const notchT = document.getElementById('notchTimer');
+      const pillT = document.getElementById('demoTimerVal');
+      if (notchT) notchT.textContent = display;
+      if (pillT) pillT.textContent = display;
+    }, 1000);
+
+    // ── FAQ ──
+    function toggleFaq(btn) {
+      const item = btn.parentElement;
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    }
+
+    // ── EMAIL FORM ──
+    const form = document.getElementById('emailForm');
+    const success = document.getElementById('emailSuccess');
+    if (form) {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = form.querySelector('.email-btn');
+        btn.disabled = true; btn.textContent = 'Sending...';
+        try {
+          const res = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } });
+          if (res.ok) { form.style.display = 'none'; success.style.display = 'flex'; }
+          else { btn.disabled = false; btn.textContent = 'Send me the app'; alert('Something went wrong. Please try again.'); }
+        } catch { btn.disabled = false; btn.textContent = 'Send me the app'; alert('Network error. Please try again.'); }
+      });
+    }
+
+    // ── SCROLL REVEAL ──
+    const obs = new IntersectionObserver(
+      entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } }),
+      { threshold: 0.1 }
+    );
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+    // ── SPOTLIGHT CARDS & MOUSE AURA & MAGNETIC BTNS ──
+    const aura = document.getElementById('mouseAura');
+    const fcards = document.querySelectorAll('.fcard, .why-item');
+    const magBtns = document.querySelectorAll('.btn-primary');
+
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    let auraX = mouseX;
+    let auraY = mouseY;
+    
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      
+      fcards.forEach(card => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.setProperty('--mouse-x', `${x}px`);
+        card.style.setProperty('--mouse-y', `${y}px`);
+      });
+    });
+
+    magBtns.forEach(btn => {
+      btn.addEventListener('mousemove', (e) => {
+        const rect = btn.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        btn.style.transform = `translate(${x * 0.25}px, ${y * 0.25}px)`;
+      });
+      btn.addEventListener('mouseleave', () => {
+        btn.style.transform = `translate(0px, 0px)`;
+      });
+    });
+
+    function animateAura() {
+      auraX += (mouseX - auraX) * 0.15;
+      auraY += (mouseY - auraY) * 0.15;
+      if (aura) {
+        aura.style.left = `${auraX}px`;
+        aura.style.top = `${auraY}px`;
+      }
+      requestAnimationFrame(animateAura);
+    }
+    animateAura();
+  </script>
+</body>
+
+</html>
