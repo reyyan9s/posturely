@@ -126,20 +126,8 @@
     }
 
     // ── EMAIL FORM ──
-    const form = document.getElementById('emailForm');
-    const success = document.getElementById('emailSuccess');
-    if (form) {
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const btn = form.querySelector('.email-btn');
-        btn.disabled = true; btn.textContent = 'Sending...';
-        try {
-          const res = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } });
-          if (res.ok) { form.style.display = 'none'; success.style.display = 'flex'; }
-          else { btn.disabled = false; btn.textContent = 'Send me the app'; alert('Something went wrong. Please try again.'); }
-        } catch { btn.disabled = false; btn.textContent = 'Send me the app'; alert('Network error. Please try again.'); }
-      });
-    }
+    // Form now submits natively to Formspree.
+    // The hidden _redirect field handles redirection to download.html.
 
     // ── SCROLL REVEAL ──
     const obs = new IntersectionObserver(
