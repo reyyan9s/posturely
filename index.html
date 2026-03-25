@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Posturely — gentle wellness reminders for posture, hydration, blinking, and breaks, built right into your MacBook notch. Free forever, no account needed." />
+  <title>Posturely — Wellness, built into the notch.</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='20' rx='8' fill='%231c1a17'/><circle cx='16' cy='20' r='5' fill='%238cb98a'/></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Caveat:wght@400;500&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+
+<body>
+
+  <!-- MOUSE AURA -->
+  <div class="mouse-aura" id="mouseAura"></div>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">
+      <div class="nav-notch">
+        <div class="nav-notch-dot"></div>
+      </div>
+      Posturely
+    </a>
+    <ul class="nav-links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#why">Why Posturely</a></li>
+      <li><a href="#get-app">Get the App</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#get-app" class="btn-nav">Get the App</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="blobs-container">
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+      <div class="blob blob-3"></div>
+    </div>
+    <div class="hero-badge">
+      <div class="badge-pip"></div>
+      macOS 13+ &nbsp;·&nbsp; Built for the notch
+    </div>
+
+    <h1 class="hero-title"><span class="word w1">Wellness,</span> <span class="word w2">built</span> <span class="word w3">into</span><br /><em>the notch.</em></h1>
+
+    <p class="hero-sub">Gentle reminders for posture, hydration, blinking, and breaks — delivered exactly where your
+      eyes already are.</p>
+
+    <div class="hero-actions">
+      <a href="#get-app" class="btn-primary">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
+        </svg>
+        Download for Mac — Free
+      </a>
+      <a href="#features" class="btn-ghost">
+        See how it works
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M5 12h14M12 5l7 7-7 7" />
+        </svg>
+      </a>
+    </div>
+
+    <p class="hero-note">completely free &nbsp;·&nbsp; no account &nbsp;·&nbsp; macOS 13+</p>
+
+    <!-- Animated notch demo -->
+    <div class="hero-demo-wrap">
+      <div class="macbook">
+        <div class="macbook-screen">
+
+          <!-- Notch -->
+          <div class="demo-notch" id="demoNotch">
+            <div class="demo-notch-camera" id="demoCamera"></div>
+            <div class="demo-notch-content" id="demoContent">
+              <div class="demo-notch-left">
+                <svg class="demo-app-icon" id="demoNotchIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="2" stroke-linecap="round">
+                  <circle cx="12" cy="5" r="2" />
+                  <path d="M12 7v5M9 10l3 2 3-2M9 20h6" />
+                </svg>
+                <span class="demo-app-name">Posturely</span>
+              </div>
+              <div class="demo-notch-right">
+                <span id="notchTimer"
+                  style="font-family:'SF Mono',Menlo,monospace;font-size:12px;font-weight:500;color:rgba(255,255,255,0.6);letter-spacing:0.04em;">00:05</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Fullscreen reminder overlay (DRINK WATER style) -->
+          <div class="demo-fullscreen" id="demoFullscreen">
+            <div class="demo-fs-icon" id="demoFsIcon">
+              <svg viewBox="0 0 24 24" fill="white">
+                <path d="M12 2C6 9 4 13.5 4 16a8 8 0 0 0 16 0c0-2.5-2-7-8-14z" />
+              </svg>
+            </div>
+            <div class="demo-fs-label" id="demoFsLabel">DRINK WATER</div>
+          </div>
+
+          <!-- Simulated desktop -->
+          <div class="demo-desktop">
+            <div class="demo-menubar">
+              <div class="demo-menubar-left">
+                <span style="font-size:11px;color:rgba(255,255,255,0.5);font-weight:600;">Finder</span>
+                <span style="font-size:11px;color:rgba(255,255,255,0.25);">File</span>
+                <span style="font-size:11px;color:rgba(255,255,255,0.25);">Edit</span>
+                <span style="font-size:11px;color:rgba(255,255,255,0.25);">View</span>
+              </div>
+              <span style="font-size:11px;color:rgba(255,255,255,0.25);">9:41 AM</span>
+            </div>
+            <div class="demo-windows">
+              <div class="demo-window">
+                <div class="demo-window-bar">
+                  <div class="demo-dot r"></div>
+                  <div class="demo-dot y"></div>
+                  <div class="demo-dot g"></div>
+                </div>
+                <div class="demo-window-lines">
+                  <div class="demo-line w80"></div>
+                  <div class="demo-line w55"></div>
+                  <div class="demo-line w70"></div>
+                  <div class="demo-line w40"></div>
+                </div>
+              </div>
+              <div class="demo-window">
+                <div class="demo-window-bar">
+                  <div class="demo-dot r"></div>
+                  <div class="demo-dot y"></div>
+                  <div class="demo-dot g"></div>
+                </div>
+                <div class="demo-window-lines">
+                  <div class="demo-line w60"></div>
+                  <div class="demo-line w80"></div>
+                  <div class="demo-line w45"></div>
+                </div>
+              </div>
+            </div>
+            <!-- Timer pill — visible during break state -->
+            <div class="demo-timer-pill" id="demoTimer">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.55)"
+                stroke-width="2">
+                <circle cx="12" cy="12" r="10" />
+                <path d="M12 6v6l4 2" />
+              </svg>
+              <span id="demoTimerVal">00:05</span>
+            </div>
+          </div>
+
+        </div>
+        <div class="macbook-chin">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="rgba(255,255,255,0.12)">
+            <path
+              d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
+          </svg>
+        </div>
+      </div>
+      <div class="demo-current-label">
+        <div class="demo-label-pip" id="demoPip"></div>
+        <span id="demoLabelText">Break reminder · notch expanded</span>
+      </div>
+    </div>
+
+    <!-- Reminder type pills -->
+    <div class="reminder-tabs">
+      <div class="reminder-tab active" data-mode="posture">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <circle cx="12" cy="5" r="2" />
+          <path d="M12 7v5M9 10l3 2 3-2M9 20h6" />
+        </svg>
+        Posture
+      </div>
+      <div class="reminder-tab" data-mode="eye">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+          <circle cx="12" cy="12" r="3" />
+        </svg>
+        Eye rest
+      </div>
+      <div class="reminder-tab" data-mode="water">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M12 2C6 9 4 13.5 4 16a8 8 0 0 0 16 0c0-2.5-2-7-8-14z" />
+        </svg>
+        Hydration
+      </div>
+      <div class="reminder-tab" data-mode="break">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M18 8h1a4 4 0 0 1 0 8h-1" />
+          <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z" />
+          <line x1="6" y1="1" x2="6" y2="4" />
+          <line x1="10" y1="1" x2="10" y2="4" />
+          <line x1="14" y1="1" x2="14" y2="4" />
+        </svg>
+        Break
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-wrap">
+    <div class="marquee">
+      <span>WELLNESS IN THE NOTCH ✦ POSTURE CHECKS ✦ HYDRATION NUDGES ✦ EYE REST PROMPTS ✦ ZERO DISTRACTIONS ✦ NATIVE TO MACOS ✦</span>
+      <span>WELLNESS IN THE NOTCH ✦ POSTURE CHECKS ✦ HYDRATION NUDGES ✦ EYE REST PROMPTS ✦ ZERO DISTRACTIONS ✦ NATIVE TO MACOS ✦</span>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- FEATURES -->
+  <section class="features" id="features">
+    <div class="reveal">
+      <div class="section-label">
+        <div class="section-pip"></div> Features
+      </div>
+      <h2 class="section-title">Not your average<br />reminder app.</h2>
+      <p class="section-sub">No banners. No popups. No noise. A gentle nudge, exactly where you're already looking.</p>
+    </div>
+
+    <div class="features-grid">
+
+      <!-- Wide: Notch integration -->
+      <div class="fcard wide reveal">
+        <div>
+          <div class="fcard-num">01</div>
+          <div class="fcard-icon ic-sage">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <rect x="5" y="0" width="14" height="8" rx="4" />
+              <line x1="2" y1="8" x2="22" y2="8" />
+            </svg>
+          </div>
+          <h3>Lives in the notch</h3>
+          <p>Posturely integrates directly into your MacBook notch — the one place your eyes always travel. No separate
+            window, no dock badge, no interruption to your flow. It expands softly with a reminder, then disappears.</p>
+        </div>
+        <div class="fcard-shot">
+          <img src="assets/images/notch-preview.png" alt="Posturely notch break timer preview" />
+        </div>
+      </div>
+
+      <!-- Card: Four reminders -->
+      <div class="fcard reveal">
+        <div class="fcard-num">02</div>
+        <div class="fcard-icon ic-lav">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <rect x="3" y="3" width="7" height="7" rx="1.5" />
+            <rect x="14" y="3" width="7" height="7" rx="1.5" />
+            <rect x="3" y="14" width="7" height="7" rx="1.5" />
+            <rect x="14" y="14" width="7" height="7" rx="1.5" />
+          </svg>
+        </div>
+        <h3>Four wellness reminders</h3>
+        <p>Posture checks, blink reminders, hydration nudges, and break prompts — each independently configurable, so it
+          fits around your schedule.</p>
+      </div>
+
+      <!-- Card: Native macOS -->
+      <div class="fcard reveal">
+        <div class="fcard-num">03</div>
+        <div class="fcard-icon ic-rose">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <path
+              d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
+          </svg>
+        </div>
+        <h3>Feels native to macOS</h3>
+        <p>Smooth system-level animations, zero latency, no Electron overhead. Posturely doesn't feel like a third-party
+          app — it feels like it was always part of macOS.</p>
+      </div>
+
+      <!-- Wide dark: Settings -->
+      <div class="fcard wide dark reveal">
+        <div>
+          <div class="fcard-num">04</div>
+          <div class="fcard-icon ic-dark">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <line x1="4" y1="6" x2="20" y2="6" />
+              <line x1="4" y1="12" x2="20" y2="12" />
+              <line x1="4" y1="18" x2="20" y2="18" />
+              <circle cx="8" cy="6" r="2" fill="currentColor" />
+              <circle cx="16" cy="12" r="2" fill="currentColor" />
+              <circle cx="10" cy="18" r="2" fill="currentColor" />
+            </svg>
+          </div>
+          <h3>Full control, zero clutter</h3>
+          <p>Set intervals per reminder type, toggle each one independently, and pause everything with one click when
+            you need focus. All from a clean native settings panel.</p>
+          <div class="rrows">
+            <div class="rrow">
+              <div class="rrow-icon" style="background:rgba(140,185,138,0.14)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#78b076" stroke-width="2" stroke-linecap="round">
+                  <circle cx="12" cy="5" r="2" />
+                  <path d="M12 7v5M9 10l3 2 3-2M9 20h6" />
+                </svg>
+              </div>
+              <div class="rrow-info">
+                <div class="rrow-name">Posture check</div>
+                <div class="rrow-time">Every 20 min</div>
+              </div>
+              <div class="rrow-badge b-sage">On</div>
+            </div>
+            <div class="rrow">
+              <div class="rrow-icon" style="background:rgba(184,176,216,0.14)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#9b90cc" stroke-width="2" stroke-linecap="round">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                  <circle cx="12" cy="12" r="3" />
+                </svg>
+              </div>
+              <div class="rrow-info">
+                <div class="rrow-name">Blink reminder</div>
+                <div class="rrow-time">Every 20 sec</div>
+              </div>
+              <div class="rrow-badge b-lav">On</div>
+            </div>
+            <div class="rrow">
+              <div class="rrow-icon" style="background:rgba(216,184,184,0.14)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#c48888" stroke-width="2" stroke-linecap="round">
+                  <path d="M12 2C6 9 4 13.5 4 16a8 8 0 0 0 16 0c0-2.5-2-7-8-14z" />
+                </svg>
+              </div>
+              <div class="rrow-info">
+                <div class="rrow-name">Hydration nudge</div>
+                <div class="rrow-time">Every 30 min</div>
+              </div>
+              <div class="rrow-badge b-rose">On</div>
+            </div>
+            <div class="rrow">
+              <div class="rrow-icon" style="background:rgba(216,205,176,0.14)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#b89e6e" stroke-width="2" stroke-linecap="round">
+                  <path d="M18 8h1a4 4 0 0 1 0 8h-1" />
+                  <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z" />
+                </svg>
+              </div>
+              <div class="rrow-info">
+                <div class="rrow-name">Break reminder</div>
+                <div class="rrow-time">Every 90 min</div>
+              </div>
+              <div class="rrow-badge b-sand">On</div>
+            </div>
+          </div>
+        </div>
+        <div class="fcard-shot">
+          <img src="assets/images/settings.png" alt="Posturely settings panel" />
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- WHY -->
+  <section class="why" id="why">
+    <div class="why-inner">
+      <div class="reveal" style="text-align:center;max-width:600px;margin:0 auto;">
+        <div class="section-label" style="margin:0 auto 20px;">
+          <div class="section-pip"></div> Why Posturely
+        </div>
+        <h2 class="section-title" style="margin:0 auto 14px;">Small reminders.<br /><em
+            style="font-style:italic;color:var(--accent-dark);">Big difference.</em></h2>
+        <p class="section-sub" style="margin:0 auto;">Your health doesn't need a dramatic overhaul. It needs consistent,
+          gentle nudges at the right moment.</p>
+      </div>
+      <div class="why-grid reveal">
+        <div class="why-item">
+          <div class="why-val">20/20/20</div>
+          <div class="why-label">Eye rest rule</div>
+          <p>Every 20 minutes, look at something 20 feet away for 20 seconds. Posturely handles the reminder so you
+            never have to think about it.</p>
+        </div>
+        <div class="why-item">
+          <div class="why-val">Zero</div>
+          <div class="why-label">Distractions added</div>
+          <p>Reminders appear in the notch and vanish silently. No popups, no sounds, no full-screen interruptions. Your
+            focus stays intact.</p>
+        </div>
+        <div class="why-item">
+          <div class="why-val">Free</div>
+          <div class="why-label">Always</div>
+          <p>No freemium trap, no subscription, no account required. Download and start building better habits in under
+            a minute.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- EMAIL CAPTURE -->
+  <section class="email-section" id="get-app">
+    <div class="email-inner reveal">
+      <div class="email-badge">
+        <div class="email-pip"></div> Early access
+      </div>
+      <h2 class="email-title">Get Posturely<br />in your <em>inbox.</em></h2>
+      <p class="email-sub">Drop your email and we'll send the app directly to you.<br />No App Store. No friction. Just
+        open and install.</p>
+
+      <form class="email-form" id="emailForm" action="https://formspree.io/f/mqeyragy" method="POST">
+        <input class="email-input" type="email" name="email" placeholder="your@email.com" required />
+        <button class="email-btn" type="submit">Send me the app</button>
+      </form>
+
+      <div class="email-success" id="emailSuccess">
+        <div class="email-success-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+            <polyline points="22 4 12 14.01 9 11.01" />
+          </svg>
+        </div>
+        <h4>You're on the list!</h4>
+        <p>We'll send Posturely to your inbox shortly. Check spam if it doesn't arrive within a few minutes.</p>
+      </div>
+
+      <p class="email-note">free forever &nbsp;·&nbsp; macOS 13+ &nbsp;·&nbsp; no spam, ever</p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- FAQ -->
+  <section class="faq" id="faq">
+    <div class="reveal" style="text-align:center;">
+      <div class="section-label" style="margin:0 auto 20px;">
+        <div class="section-pip"></div> FAQ
+      </div>
+      <h2 class="section-title" style="margin:0 auto;">Frequent<br />questions.</h2>
+    </div>
+    <div class="faq-list reveal">
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <div class="faq-q-inner"><span class="faq-num">01</span> Does it work on Macs without a notch?</div>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 9l6 6 6-6" />
+          </svg>
+        </div>
+        <div class="faq-answer">
+          <p>Posturely is designed specifically for MacBooks with a notch — MacBook Pro 2021 and later, MacBook Air 2022
+            and later. It isn't available for older models without a notch.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <div class="faq-q-inner"><span class="faq-num">02</span> Will it slow down my Mac?</div>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 9l6 6 6-6" />
+          </svg>
+        </div>
+        <div class="faq-answer">
+          <p>Not at all. Posturely is extremely lightweight — negligible CPU usage, minimal memory. You won't notice it
+            running except when it gently reminds you.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <div class="faq-q-inner"><span class="faq-num">03</span> Can I customize the reminder intervals?</div>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 9l6 6 6-6" />
+          </svg>
+        </div>
+        <div class="faq-answer">
+          <p>Yes — every reminder type has its own configurable interval and can be toggled independently. Set posture
+            checks every 20 minutes, blink reminders every 20 seconds, and so on.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <div class="faq-q-inner"><span class="faq-num">04</span> Can I pause reminders during meetings?</div>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 9l6 6 6-6" />
+          </svg>
+        </div>
+        <div class="faq-answer">
+          <p>Yes. Pause Posturely from the menu bar with one click, or set a Do Not Disturb duration. You stay in
+            control — it never interrupts at the wrong moment.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <div class="faq-q-inner"><span class="faq-num">05</span> Is my data private?</div>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 9l6 6 6-6" />
+          </svg>
+        </div>
+        <div class="faq-answer">
+          <p>Completely. Posturely runs entirely on your Mac and sends nothing anywhere. No account, no telemetry, no
+            analytics of any kind.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <div class="faq-q-inner"><span class="faq-num">06</span> Is it really free forever?</div>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 9l6 6 6-6" />
+          </svg>
+        </div>
+        <div class="faq-answer">
+          <p>Yes. No freemium model, no subscription coming later. Posturely is free because access to healthier habits
+            shouldn't cost anything.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- DOWNLOAD CTA -->
+  <section class="download">
+    <div class="reveal">
+      <div class="section-label" style="margin:0 auto 28px;">
+        <div class="section-pip"></div> Free forever
+      </div>
+      <h2 class="download-title">Start taking care<br />of yourself. <em>Today.</em></h2>
+      <p class="download-sub">No sign-up. No subscription. No catch.<br />Just download and let Posturely do its thing.
+      </p>
+      <a href="#get-app" class="btn-primary" style="display:inline-flex;font-size:16px;padding:16px 36px;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
+        </svg>
+        Download for Mac — Free
+      </a>
+      <div class="download-tags">
+        <span class="download-tag">macOS 13+</span>
+        <span class="download-tag">No account needed</span>
+        <span class="download-tag">MacBooks with notch</span>
+        <span class="download-tag">Always free</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <div class="footer-stripe"></div>
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <div class="footer-notch">
+          <div class="footer-notch-dot"></div>
+        </div>
+        Posturely
+      </div>
+      <div class="footer-copy">© 2025 Posturely. Made with care for your wellbeing.</div>
+      <div class="footer-links">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/script.js" defer></script>
+</body>
+
+</html>
