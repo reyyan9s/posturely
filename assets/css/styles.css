@@ -1490,6 +1490,114 @@
         display: none;
       }
 
+      /* Hero */
+      .hero {
+        padding: 60px 20px 50px;
+      }
+
+      .hero-title {
+        font-size: clamp(36px, 10vw, 52px);
+      }
+
+      .hero-sub {
+        font-size: 17px;
+        margin: 20px auto 32px;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .btn-primary {
+        font-size: 14px;
+        padding: 13px 24px;
+        width: 100%;
+        max-width: 300px;
+        justify-content: center;
+      }
+
+      .hero-note {
+        font-size: 13px;
+      }
+
+      /* Blobs */
+      .blob-1 { width: 220px; height: 220px; }
+      .blob-2 { width: 280px; height: 280px; }
+      .blob-3 { width: 200px; height: 200px; }
+
+      /* Demo */
+      .hero-demo-wrap {
+        margin-top: 48px;
+        max-width: 100%;
+      }
+
+      .macbook-screen {
+        min-height: 220px;
+      }
+
+      .demo-notch {
+        width: 140px;
+        height: 26px;
+      }
+
+      .demo-notch.expanded {
+        width: 260px;
+        height: 38px;
+      }
+
+      .demo-notch-content {
+        padding: 0 10px;
+      }
+
+      .demo-app-name {
+        font-size: 10px;
+      }
+
+      .demo-app-icon {
+        width: 12px;
+        height: 12px;
+      }
+
+      .demo-fs-icon {
+        width: 40px;
+        height: 40px;
+      }
+
+      .demo-fs-label {
+        font-size: 14px;
+      }
+
+      .demo-current-label {
+        font-size: 11px;
+      }
+
+      /* Reminder tabs */
+      .reminder-tabs {
+        margin-top: 40px;
+        gap: 8px;
+      }
+
+      .reminder-tab {
+        padding: 7px 14px;
+        font-size: 12px;
+      }
+
+      .reminder-tab svg {
+        width: 12px;
+        height: 12px;
+      }
+
+      /* Marquee */
+      .marquee {
+        font-size: 11px;
+      }
+
+      /* Features */
+      .features {
+        padding: 80px 20px;
+      }
+
       .features-grid {
         grid-template-columns: 1fr;
       }
@@ -1499,26 +1607,190 @@
         grid-template-columns: 1fr;
       }
 
+      .section-title {
+        font-size: clamp(32px, 7vw, 48px);
+      }
+
+      .section-sub {
+        font-size: 16px;
+        margin-bottom: 36px;
+      }
+
+      .fcard {
+        padding: 24px;
+      }
+
+      .fcard h3 {
+        font-size: 18px;
+      }
+
+      .fcard p {
+        font-size: 14px;
+      }
+
+      /* Why */
+      .why {
+        padding: 80px 20px;
+      }
+
       .why-grid {
         grid-template-columns: 1fr;
+        margin-top: 40px;
       }
 
       .why-item {
         border-right: none;
         border-bottom: 1px solid var(--border);
+        padding: 28px 24px;
       }
 
-      .hero-screen-float,
-      .hero-screen-settings {
-        display: none;
+      .why-item:last-child {
+        border-bottom: none;
       }
 
+      .why-val {
+        font-size: 32px;
+      }
+
+      .why-item p {
+        font-size: 13px;
+      }
+
+      /* Email section */
+      .email-section {
+        padding: 80px 20px;
+      }
+
+      .email-title {
+        font-size: clamp(28px, 7vw, 40px);
+      }
+
+      .email-sub {
+        font-size: 14px;
+        margin-bottom: 28px;
+      }
+
+      .email-form {
+        flex-direction: column;
+        max-width: 100%;
+        gap: 10px;
+      }
+
+      .email-input {
+        width: 100%;
+        padding: 14px 16px;
+        font-size: 15px;
+      }
+
+      .email-btn {
+        width: 100%;
+        padding: 14px 20px;
+        font-size: 15px;
+      }
+
+      .email-note {
+        font-size: 13px;
+      }
+
+      /* FAQ */
+      .faq {
+        padding: 80px 20px;
+      }
+
+      .faq-q-inner {
+        font-size: 14px;
+      }
+
+      .faq-answer p {
+        font-size: 14px;
+        padding-left: 0;
+      }
+
+      /* Download CTA */
+      .download {
+        padding: 80px 20px;
+      }
+
+      .download-title {
+        font-size: clamp(30px, 7vw, 48px);
+      }
+
+      .download-sub {
+        font-size: 15px;
+      }
+
+      .download-tags {
+        gap: 8px;
+      }
+
+      .download-tag {
+        font-size: 12px;
+        padding: 0 10px;
+      }
+
+      /* Footer */
       footer {
         padding: 32px 20px;
       }
 
       .footer-inner {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
+        text-align: center;
+      }
+
+      .footer-copy {
+        font-size: 12px;
+      }
+
+      .footer-links {
+        gap: 18px;
       }
     }
+
+    /* Extra small screens */
+    @media (max-width: 400px) {
+      .hero-title {
+        font-size: 32px;
+      }
+
+      .hero-sub {
+        font-size: 15px;
+      }
+
+      .hero-badge {
+        font-size: 11px;
+        padding: 5px 12px;
+      }
+
+      .demo-notch.expanded {
+        width: 220px;
+        height: 34px;
+      }
+
+      .section-title {
+        font-size: 28px;
+      }
+
+      .email-title {
+        font-size: 26px;
+      }
+
+      .fcard {
+        padding: 20px;
+      }
+
+      .why-val {
+        font-size: 28px;
+      }
+
+      .download-tag {
+        border-right: none;
+        padding: 4px 0;
+      }
+
+      .download-tags {
+        flex-direction: column;
+      }
+    }
+
