@@ -126,8 +126,35 @@
     }
 
     // ── EMAIL FORM ──
-    // Form now submits natively to Formspree.
-    // The hidden _redirect field handles redirection to download.html.
+    const form = document.getElementById('emailForm');
+    if (form) {
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        const btn = form.querySelector('.email-btn');
+        btn.disabled = true;
+        btn.textContent = 'Sending...';
+
+        try {
+          const response = await fetch(form.action, {
+            method: form.method,
+            body: new FormData(form),
+            headers: { 'Accept': 'application/json' }
+          });
+
+          if (response.ok) {
+            window.location.href = '/download.html';
+          } else {
+            btn.disabled = false;
+            btn.textContent = 'Get Posturely';
+            alert('Something went wrong. Please try again.');
+          }
+        } catch (err) {
+          btn.disabled = false;
+          btn.textContent = 'Get Posturely';
+          alert('Network error. Please try again.');
+        }
+      });
+    }
 
     // ── SCROLL REVEAL ──
     const obs = new IntersectionObserver(
