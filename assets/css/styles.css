@@ -1794,3 +1794,40 @@
       }
     }
 
+    /* FLOATING COFFEE WIDGET */
+    .floating-coffee {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--text);
+      color: var(--bg);
+      padding: 12px 20px;
+      border-radius: 100px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+      font-size: 14px;
+      text-decoration: none;
+      box-shadow: var(--shadow-md);
+      z-index: 1000;
+      transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .floating-coffee:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+    .floating-coffee svg {
+      width: 18px;
+      height: 18px;
+    }
+    @media (max-width: 768px) {
+      .floating-coffee {
+        bottom: 20px;
+        right: 20px;
+        padding: 14px;
+      }
+      .floating-coffee span {
+        display: none;
+      }
+    }
